@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joshua Mein — Cloud Infrastructure & Systems Engineer</title>
+    <meta name="description" content="Joshua Mein — Cloud Infrastructure & Systems Engineer specialising in AWS, Linux, automation, and large-scale distributed systems.">
+    <meta name="author" content="Joshua Mein">
+
+    <!-- Open Graph -->
+    <meta property="og:title" content="Joshua Mein — Cloud Infrastructure & Systems Engineer">
+    <meta property="og:description" content="Portfolio showcasing cloud infrastructure, automation, homelab, and open-source projects.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://joshwaamein.github.io/portfolio-site/">
+
+    <script>
+        // Prevent flash of unstyled theme — set before render.
+        // Default to dark (matches the Matrix rain branding); user choice persisted in localStorage.
+        (function () {
+            const theme = localStorage.getItem('theme') || 'dark';
+            document.documentElement.setAttribute('data-theme', theme);
+            if (localStorage.getItem('a11y') === 'true') {
+                document.documentElement.setAttribute('data-a11y', 'true');
+            }
+            if (localStorage.getItem('rain') === 'false') {
+                document.documentElement.setAttribute('data-rain', 'off');
+            }
+        })();
+    </script>
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="images/favicon.svg">
+</head>
+<body>
+    <canvas id="matrix-rain" aria-hidden="true"></canvas>
+
+    <div class="app">
+        <header class="header">
+            <div class="header-top">
+                <a href="#" class="logo" data-tab="about">
+                    <span class="logo-bracket">[</span>Joshua Mein<span class="logo-bracket">]</span>
+                    <span class="logo-cursor">_</span>
+                </a>
+                <div class="header-right">
+                    <button class="icon-btn" id="rain-toggle" title="Toggle Matrix rain background" aria-label="Toggle Matrix rain background">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M6 2v4h2V2H6zm5 0v6h2V2h-2zm5 0v3h2V2h-2zM6 9v6h2V9H6zm5 9v4h2v-4h-2zm5-7v9h2v-9h-2zM6 18v4h2v-4H6zm5-8v6h2v-6h-2z"/></svg>
+                    </button>
+                    <button class="icon-btn" id="theme-toggle" title="Toggle theme" aria-label="Toggle theme">
+                        <svg class="theme-icon sun" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 7c-2.76 0-5 2.24-5 5s2.24 5 5 5 5-2.24 5-5-2.24-5-5-5zM2 13h2c.55 0 1-.45 1-1s-.45-1-1-1H2c-.55 0-1 .45-1 1s.45 1 1 1zm18 0h2c.55 0 1-.45 1-1s-.45-1-1-1h-2c-.55 0-1 .45-1 1s.45 1 1 1zM11 2v2c0 .55.45 1 1 1s1-.45 1-1V2c0-.55-.45-1-1-1s-1 .45-1 1zm0 18v2c0 .55.45 1 1 1s1-.45 1-1v-2c0-.55-.45-1-1-1s-1 .45-1 1zM5.99 4.58a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0s.39-1.03 0-1.41L5.99 4.58zm12.37 12.37a.996.996 0 00-1.41 0 .996.996 0 000 1.41l1.06 1.06c.39.39 1.03.39 1.41 0a.996.996 0 000-1.41l-1.06-1.06zm1.06-10.96a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06zM7.05 18.36a.996.996 0 000-1.41.996.996 0 00-1.41 0l-1.06 1.06c-.39.39-.39 1.03 0 1.41s1.03.39 1.41 0l1.06-1.06z"/></svg>
+                        <svg class="theme-icon moon" viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 3a9 9 0 109 9c0-.46-.04-.92-.1-1.36a5.389 5.389 0 01-4.4 2.26 5.403 5.403 0 01-3.14-9.8c-.44-.06-.9-.1-1.36-.1z"/></svg>
+                    </button>
+                    <button class="icon-btn" id="a11y-toggle" title="Toggle accessibility mode" aria-label="Toggle accessibility mode">
+                        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M12 2c1.1 0 2 .9 2 2s-.9 2-2 2-2-.9-2-2 .9-2 2-2zm9 7h-6v13h-2v-6h-2v6H9V9H3V7h18v2z"/></svg>
+                    </button>
+                </div>
+            </div>
+            <nav class="nav-bar" role="tablist" aria-label="Sections">
+                <button class="nav-tab active" data-tab="about" role="tab" aria-selected="true">About</button>
+                <button class="nav-tab" data-tab="projects" role="tab" aria-selected="false">Projects</button>
+                <button class="nav-tab" data-tab="experience" role="tab" aria-selected="false">Experience</button>
+                <button class="nav-tab" data-tab="contact" role="tab" aria-selected="false">Contact</button>
+                <a class="nav-tab nav-tab-external" href="https://joshwaamein.github.io" target="_blank" rel="noopener" title="Open my blog in a new tab">Blog<span class="nav-tab-external-icon" aria-hidden="true">↗</span></a>
+            </nav>
+        </header>
+
+        <main class="main">
+
+            <!-- About -->
+            <section id="tab-about" class="tab-content active" role="tabpanel">
+                <div class="about-hero">
+                    <div class="about-intro">
+                        <p class="prompt">~/whoami $</p>
+                        <h2 class="about-title">Cloud Infrastructure &amp; Systems Engineer</h2>
+                        <p class="about-subtitle">Building, breaking, and automating things at scale.</p>
+                    </div>
+                </div>
+
+                <div class="about-body">
+                    <div class="about-section">
+                        <h3 class="about-heading">// About Me</h3>
+                        <p class="about-text">
+                            I'm a cloud infrastructure and systems engineer with over eight years of experience
+                            specialising in the design, implementation, and operation of large-scale distributed systems.
+                            My expertise spans AWS cloud infrastructure, Linux systems, networking, security, CI/CD,
+                            infrastructure as code, and automation.
+                        </p>
+                        <p class="about-text">
+                            I currently operate at AWS as a Systems Engineer on Amazon S3, where I build tooling to
+                            automate fleet remediation, regional resource deployment, and operational processes across
+                            globally distributed infrastructure.
+                        </p>
+                        <p class="about-text">
+                            I'm a passionate advocate for observability, automation, and operational excellence.
+                            I maintain an extensive home lab across four geographically distributed sites with separate
+                            WAN links — covering virtualisation, containerisation, networking, security, and monitoring —
+                            and write about it on my blog,
+                            <a href="https://joshwaamein.github.io" target="_blank" rel="noopener">Building, Breaking &amp; Automating Things</a>.
+                        </p>
+                    </div>
+
+                    <div class="about-section">
+                        <h3 class="about-heading">// Skills &amp; Technologies</h3>
+                        <div class="legend" aria-label="Skill highlight legend">
+                            <span class="legend-item"><span class="skill-tag primary legend-swatch">primary</span> core / lead skill</span>
+                            <span class="legend-item"><span class="skill-tag legend-swatch">tag</span> supporting skill</span>
+                            <span class="legend-item"><span class="skill-tag cert legend-swatch">cert</span> certification or qualification</span>
+                        </div>
+                        <div class="skills-grid">
+                            <div class="skill-category">
+                                <h4 class="skill-category-title">Infrastructure &amp; Cloud</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag primary">AWS</span>
+                                    <span class="skill-tag primary">S3</span>
+                                    <span class="skill-tag">Azure</span>
+                                    <span class="skill-tag">Virtualisation</span>
+                                    <span class="skill-tag">Proxmox</span>
+                                    <span class="skill-tag">Hyper-V</span>
+                                    <span class="skill-tag">Docker</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4 class="skill-category-title">Automation &amp; Tooling</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag primary">Python</span>
+                                    <span class="skill-tag primary">Bash</span>
+                                    <span class="skill-tag primary">Ansible</span>
+                                    <span class="skill-tag">Semaphore</span>
+                                    <span class="skill-tag">CI/CD</span>
+                                    <span class="skill-tag">Infrastructure as Code</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4 class="skill-category-title">Networking &amp; Security</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag primary">TCP/IP</span>
+                                    <span class="skill-tag">VLANs</span>
+                                    <span class="skill-tag">DNS</span>
+                                    <span class="skill-tag">VPNs</span>
+                                    <span class="skill-tag">UniFi</span>
+                                    <span class="skill-tag">Tailscale</span>
+                                    <span class="skill-tag">Fail2Ban</span>
+                                    <span class="skill-tag">IDS/IPS</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4 class="skill-category-title">Observability</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag primary">Prometheus</span>
+                                    <span class="skill-tag primary">Grafana</span>
+                                    <span class="skill-tag">Zabbix</span>
+                                    <span class="skill-tag">Alerting</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4 class="skill-category-title">Certifications</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag cert">AWS Certified AI Practitioner</span>
+                                    <span class="skill-tag cert">LPI Linux Essentials</span>
+                                    <span class="skill-tag cert">MBCS Certified Professional</span>
+                                    <span class="skill-tag cert">MTA Cloud Fundamentals</span>
+                                    <span class="skill-tag cert">MTA Networking Fundamentals</span>
+                                </div>
+                            </div>
+                            <div class="skill-category">
+                                <h4 class="skill-category-title">Education</h4>
+                                <div class="skill-tags">
+                                    <span class="skill-tag cert">BSc (Hons, 1st Class) — Digital Technology Solutions, University of Roehampton</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects -->
+            <section id="tab-projects" class="tab-content" role="tabpanel">
+                <h2 class="page-title">// Projects</h2>
+                <p class="page-sub">A selection of recent work — click any card for a development deep dive.</p>
+                <div class="legend" aria-label="Project highlight legend">
+                    <span class="legend-item"><span class="legend-swatch swatch-featured"></span> featured project</span>
+                    <span class="legend-item"><span class="legend-swatch swatch-default"></span> standard project</span>
+                </div>
+                <div class="projects-grid" id="projects-grid"><!-- populated by app.js --></div>
+            </section>
+
+            <!-- Experience -->
+            <section id="tab-experience" class="tab-content" role="tabpanel">
+                <h2 class="page-title">// Experience</h2>
+                <div class="legend" aria-label="Experience highlight legend">
+                    <span class="legend-item"><span class="legend-swatch swatch-current"></span> current role</span>
+                    <span class="legend-item"><span class="legend-swatch swatch-default"></span> previous role</span>
+                </div>
+                <ol class="timeline">
+                    <li class="timeline-item current">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="role-header">
+                                <h3 class="role-title">Systems Engineer — Amazon S3</h3>
+                                <span class="role-company">Amazon Web Services (AWS)</span>
+                                <span class="role-meta">Sep 2024 – Present · London (Holborn), UK</span>
+                            </div>
+                            <ul class="role-bullets">
+                                <li>Designed and implemented permissions replication tooling to rectify resource permissions across multiple AWS regions, automating the creation and alignment of team and group resources to ensure consistent access control at scale.</li>
+                                <li>Developed a diagnostic and automated remediation system for S3 storage server initialisation failures — programmatically identifying failure points across server build workflow steps and remediating fleets of servers, saving <strong>$18 million</strong>.</li>
+                                <li>Leading a project to automate regional resource deployment in regions that previously required manual provisioning, using Managed Resource Creation (MRC) and pipeline-based deployment for scalable, repeatable IaC workflows.</li>
+                                <li>On-call rotations, incident response, and operational improvement — applying Python and Bash to reduce toil, improve observability, and enhance team efficiency.</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="role-header">
+                                <h3 class="role-title">IT &amp; Business Systems Manager</h3>
+                                <span class="role-company">Marshall Slingsby Advanced Composites</span>
+                                <span class="role-meta">Mar 2024 – Aug 2024 · York, UK</span>
+                            </div>
+                            <ul class="role-bullets">
+                                <li>Led projects to network-enable plant machinery, extracting operational data over the network for monitoring and reporting.</li>
+                                <li>Conducted business process mapping and ERP customisations for migration from MAX (legacy SSA Global / Infor ERP), achieving a <strong>reduction in processing time</strong>.</li>
+                                <li>Directed a team of IT professionals through ERP integration, ensuring seamless data flow across departments.</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="role-header">
+                                <h3 class="role-title">IT Support Engineer</h3>
+                                <span class="role-company">Afinite</span>
+                                <span class="role-meta">Sep 2023 – Feb 2024 · Leeds, UK</span>
+                            </div>
+                            <ul class="role-bullets">
+                                <li>Delivered expert technical support for complex IT infrastructure, resolving <strong>95% of tickets within SLA</strong>.</li>
+                                <li>Implemented proactive maintenance strategies and advanced monitoring, reducing incident rates.</li>
+                                <li>Led deployments of new technologies and upgrades, ensuring seamless integration with existing systems.</li>
+                                <li>Performed root cause analysis on recurring problems to prevent regressions.</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="timeline-item">
+                        <div class="timeline-dot"></div>
+                        <div class="timeline-card">
+                            <div class="role-header">
+                                <h3 class="role-title">IT Technician / IT Manager</h3>
+                                <span class="role-company">Intercontinental Brands (ICB) Ltd</span>
+                                <span class="role-meta">Jan 2018 – Sep 2023 · Harrogate, UK</span>
+                            </div>
+                            <ul class="role-bullets">
+                                <li>Acting IT Manager for technology operations across <strong>3 distributed sites</strong> with clustered infrastructure for a £30m manufacturing business.</li>
+                                <li>Designed and implemented Zabbix monitoring with custom templates for real-time observability, alerting, and telemetry.</li>
+                                <li>Built Python &amp; Bash automation for patching, server builds, cleanups, and IFS ERP safe shutdown/startup procedures.</li>
+                                <li>Designed a hybrid HA/DR architecture using Hyper-V clusters with multi-site failover — <strong>99.99% uptime, RTO &lt; 30 minutes</strong>.</li>
+                                <li>Migrated legacy systems to AWS, Azure, and DigitalOcean — <strong>15% maintenance cost reduction, 40% scalability improvement</strong>.</li>
+                                <li>Resolved critical network incidents (broadcast storms) via packet analysis and VLAN segmentation, with new monitoring &amp; alerts.</li>
+                                <li>Implemented IDS/IPS, endpoint management, network isolation, and led data protection compliance initiatives.</li>
+                            </ul>
+                        </div>
+                    </li>
+                </ol>
+            </section>
+
+            <!-- Contact -->
+            <section id="tab-contact" class="tab-content" role="tabpanel">
+                <h2 class="page-title">// Contact</h2>
+                <p class="page-sub">Find me on the network.</p>
+                <div class="contact-grid">
+                    <a class="contact-card" href="https://github.com/Joshwaamein" target="_blank" rel="noopener">
+                        <span class="contact-icon">⌬</span>
+                        <span class="contact-label">GitHub</span>
+                        <span class="contact-handle">@Joshwaamein</span>
+                    </a>
+                    <a class="contact-card" href="https://www.linkedin.com/in/josh-mein/" target="_blank" rel="noopener">
+                        <span class="contact-icon">in</span>
+                        <span class="contact-label">LinkedIn</span>
+                        <span class="contact-handle">josh-mein</span>
+                    </a>
+                    <a class="contact-card" href="https://joshwaamein.github.io" target="_blank" rel="noopener">
+                        <span class="contact-icon">✎</span>
+                        <span class="contact-label">Blog</span>
+                        <span class="contact-handle">joshwaamein.github.io</span>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer">
+            <p>&copy; <span id="year"></span> Joshua Mein · Built with vanilla HTML/CSS/JS · <a href="https://github.com/Joshwaamein/portfolio-site" target="_blank" rel="noopener">source</a></p>
+        </footer>
+    </div>
+
+    <!-- Project deep-dive modal -->
+    <div class="modal" id="project-modal" aria-hidden="true" role="dialog" aria-modal="true">
+        <div class="modal-backdrop" data-close></div>
+        <div class="modal-panel">
+            <button class="modal-close" data-close aria-label="Close">×</button>
+            <div class="modal-content" id="modal-content"></div>
+        </div>
+    </div>
+
+    <script src="data/projects.js"></script>
+    <script src="matrix-rain.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

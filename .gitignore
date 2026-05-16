@@ -1,0 +1,16 @@
+# macOS / Linux
+.DS_Store
+Thumbs.db
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Logs
+*.log
+
+# Local dev artefacts
+node_modules/
+.cache/
